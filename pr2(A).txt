@@ -1,0 +1,90 @@
+Microsoft Windows [Version 10.0.26100.3775]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MySQL\MySQL Server 9.4\bin>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database demo1;
+Query OK, 1 row affected (0.093 sec)
+
+mysql> use demo1;
+Database changed
+mysql> create table student (rollno int,name varchar(10));
+Query OK, 0 rows affected (0.333 sec)
+
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.151 sec)
+
+mysql> create table students(student_id int,name varchar(300),email_id varchar(200),date_of_birth date);
+Query OK, 0 rows affected (0.397 sec)
+
+mysql> alter table students add column dapartment_id int;
+Query OK, 0 rows affected (0.484 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table students add primary key(student_id);
+Query OK, 0 rows affected (0.723 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table students modify column name varchar(300);
+Query OK, 0 rows affected (0.079 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table students drop column email_id;
+Query OK, 0 rows affected (0.207 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table courses(course_id int primary key,course_name varchar(255));
+Query OK, 0 rows affected (0.186 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_demo1 |
++-----------------+
+| courses         |
+| student         |
+| students        |
++-----------------+
+3 rows in set (0.342 sec)
+
+
+mysql> alter table students modify column name char(255);
+Query OK, 0 rows affected (0.705 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc students;
++---------------+-----------+------+-----+---------+-------+
+| Field         | Type      | Null | Key | Default | Extra |
++---------------+-----------+------+-----+---------+-------+
+| student_id    | int       | NO   | PRI | NULL    |       |
+| name          | char(255) | YES  |     | NULL    |       |
+| date_of_birth | date      | YES  |     | NULL    |       |
+| dapartment_id | int       | YES  |     | NULL    |       |
++---------------+-----------+------+-----+---------+-------+
+4 rows in set (0.021 sec)
+
+mysql> desc courses;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| course_id   | int          | NO   | PRI | NULL    |       |
+| course_name | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+2 rows in set (0.024 sec)
