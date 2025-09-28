@@ -1,0 +1,91 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Fri Sep 26 14:26:05 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Fri Sep 26 2025 10:43:28 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+
+SQL> create table libraryy (bookid int,bookname varchar(20),authorname varchar (20),price int,purchasedate date);
+
+Table created.
+
+SQL> insert into libraryy values (101,'java','john',700,'12-sept-2025');
+insert into libraryy values (101,'java','john',700,'12-sept-2025')
+                                                   *
+
+SQL> insert into libraryy values (101,'java','john',700,'12-aug-2025');
+
+1 row created.
+
+S
+
+
+SQL> select * from libraryy;
+
+    BOOKID BOOKNAME             AUTHORNAME                PRICE PURCHASED
+---------- -------------------- -------------------- ---------- ---------
+       101 java                 john                        700 12-AUG-25
+
+SQL> create table bklib as select * from libraryy;
+
+Table created.
+
+
+SQL> @ C:\Users\System05\Documents\dbms\trigger1.sql;
+
+Trigger created.
+
+
+SQL> delete from libraryy;
+
+1 row deleted.
+
+SQL> select * from bklib;
+
+    BOOKID BOOKNAME             AUTHORNAME                PRICE PURCHASED
+---------- -------------------- -------------------- ---------- ---------
+       101 java                 john                        700 12-AUG-25
+       101 java                 john                        700 12-AUG-25
+
+SQL>
+
+
+Code:
+CREATE OR REPLACE TRIGGER ABC
+BEFORE UPDATE OR DELETE
+ON libraryy
+FOR EACH ROW
+BEGIN
+  INSERT INTO bklib VALUES(:OLD.bookid, :OLD.bookname,:OLD.authorname,:OLD.price,:OLD.purchasedate);
+END;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE TRIGGER demoe
+BEFORE INSERT OR UPDATE OR DELETE ON libraryy
+FOR EACH ROW
+BEGIN
+  IF RTRIM(UPPER(TO_CHAR(SYSDATE, 'DAY'))) = 'FRIDAY' THEN
+    RAISE_APPLICATION_ERROR(-20206, 'Cannot perform insert, delete, or update operations today');
+  END IF;
+END;
+/
