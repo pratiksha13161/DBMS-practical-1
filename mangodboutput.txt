@@ -1,0 +1,69 @@
+Please enter a MongoDB connection string (Default: mongodb://localhost/): connect
+connect
+Current Mongosh Log ID: 68df9c203f4fb0d63acebea3
+Connecting to:          mongodb://127.0.0.1:27017/connect?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.0
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-09-29T13:03:55.774+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+connect> use dbs
+switched to db dbs
+dbs> show dbs
+;          8.00 KiB
+admin     40.00 KiB
+college   72.00 KiB
+company  168.00 KiB
+config    72.00 KiB
+dept      48.00 KiB
+f_mong    80.00 KiB
+local     64.00 KiB
+stud      80.00 KiB
+student   68.00 KiB
+teacher   72.00 KiB
+test      72.00 KiB
+dbs> db.createCollection('Stud');
+{ ok: 1 }
+dbs> db.stud.insertOne({rollno:101,name:'Pratiksha',class:'TE',fees:100000});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68df9d5f3f4fb0d63acebea4')
+}
+dbs> db.Stud.find({_id:0});
+
+dbs> db.stud.insertOne({rollno:102,name:'Anushka',class:'TE',fees:200000});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68df9de43f4fb0d63acebea5')
+}
+dbs> db.stud.insertOne({rollno:103,name:'Laxmi',class:'TE',fees:90000});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68df9e033f4fb0d63acebea6')
+}
+dbs> db.stud.insertOne({rollno:104,name:'Isha',class:'TE',fees:70000});
+{
+  acknowledged: true,
+  insertedId: ObjectId('68df9e183f4fb0d63acebea7')
+}
+dbs> db.Stud.find({},{_id:0})
+
+dbs> db.Stud.update({rollno:102},{$set:{'Riya':'Anushka'}});
+DeprecationWarning: Collection.update() is deprecated. Use updateOne, updateMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+dbs> db.Stud.remove({rollno:101});
+DeprecationWarning: Collection.remove() is deprecated. Use deleteOne, deleteMany, findOneAndDelete, or bulkWrite.
+{ acknowledged: true, deletedCount: 0 }
+dbs>
+
